@@ -9,7 +9,8 @@ html,body{
       width:100%;
       background-color:#ffffff;
       font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+      overflow-x:hidden; /* Prevents horizontal scrollbar on the entire page */
+    }
 
 h1{
     font-size: 32px;
@@ -17,10 +18,13 @@ h1{
 
 h2{
     font-size: 24px;
+    
 }
 
 .box-title{
     font-size:120%;
+    margin-bottom: 24px; /* Space below the title */
+    margin-top:24px; /* Space above the title */
 }
 
 #container{
@@ -36,21 +40,27 @@ h2{
 
     display:flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: stretch; /* <--- IMPORTANT CHANGE: Makes all boxes in a row the same height */
     gap:40px; 
     flex-wrap: wrap;
 }
 
 .box{
+
     flex: 1 1 300px; /* Grow and shrink as needed, minimum 300px */
-    min-height:300px;
+    
     background-color:#999999;
     border: 3px solid #000000;
     border-radius: 4px;
     box-shadow:rgba(149, 157, 165, 0.2) 0px 8px 24px;;
+    align-items:stretch;
 
     padding:60px 20px 20px 20px;
     text-align: left;
+
+    height: auto; /* Ensure height can expand based on content */
+    min-height: 300px; /* Minimum height for the boxes */
+
 
     position: relative;  /* Add this */
 }
@@ -67,10 +77,14 @@ h2{
     text-align:right;
     background-color: aqua;
     padding:8px;
+
+    z-index: 1; /* Ensure label is above box content if needed */
 }
 
 .text{
     line-height:22px;
+    flex:1 1 auto;
+  
 }
 
 
@@ -96,15 +110,18 @@ h2{
 
 /* //////////////////////////////////////////////// */
 
-
 @media (max-width: 1200px) {
-  .box {
-    flex: 1 1 45%; /* Boxes become 2 columns */
+  #box-wrapper {
+    padding-left: 40px;
+    padding-right: 40px;
+    gap: 30px; 
   }
-
+  .box {
+    flex: 1 1 calc(50% - 15px); /* <--- Adjusted for 2 columns with 30px gap */
+    /* (100% - 30px gap) / 2 boxes = 50% - 15px */
+    min-height: 280px; /* Adjust min-height for smaller screens */
+  }
 }
-
-
 
 
 @media (max-width: 991px) {
@@ -115,9 +132,9 @@ h2{
   }
   
   .box {
-    flex: 1 1 45%; /* Boxes become 2 columns */
+    flex: 1 1 calc(50% - 15px); /* <--- Adjusted for 2 columns with 30px gap */
+    min-height: 250px; /* Adjust min-height */
   }
-
 }
 
 
@@ -130,9 +147,8 @@ h2{
   }
   
   .box {
-    flex: 1 1 100%; /* Boxes become 2 columns */
+    flex: 1 1 100%; /* <--- Forces 1 column */
+    min-height: 220px; /* Adjust min-height */
   }
   
 }
-
-
